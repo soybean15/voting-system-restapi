@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CandidateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +12,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
-    return "Hello";
+    return view('homepage');
+});
+// Route::resource('candidate', CandidateController::class);
+
+// Route::resource('candidate', CandidateController::class);
+// Route::post('candidate/store',  [CandidateController::class,'storeCandidate'])->name('candidate.store');
+Route::middleware(['cors'])->group(function () {
+    Route::resource('candidate', CandidateController::class);
+
+    Route::resource('candidate', CandidateController::class);
+    Route::post('candidate/store',  [CandidateController::class,'storeCandidate'])->name('candidate.store');
 });
