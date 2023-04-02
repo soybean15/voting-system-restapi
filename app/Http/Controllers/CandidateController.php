@@ -12,6 +12,8 @@ class CandidateController extends Controller
     public function index()
     {
 
+
+        //test
         $positions = \App\Models\Position::with('candidates')->get();
      
         return view('layouts.home',compact('positions'));
