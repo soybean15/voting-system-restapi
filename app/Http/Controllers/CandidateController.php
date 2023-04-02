@@ -39,13 +39,7 @@ class CandidateController extends Controller
     {
         $position = $request->all();
 
-      if ($request->hasfile('image')){
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalEXtension();
-        $filename= time(). '.' . $extension;
-        $file->move('uploads/candidates/', $filename);
-        $candidate->image = $filename;
-      }
+     
         \App\Models\Position::create($position);
         return redirect('/candidate');
         
@@ -96,8 +90,15 @@ class CandidateController extends Controller
         $position =\Session::get('position_object');
 
         $name = $request->name;
-
         $candidate = new \App\Models\Candidate(['name'=>$name]);
+        if ($request->hasfile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalEXtension();
+            $filename= time(). '.' . $extension;
+            $file->move('uploads/candidates/', $filename);
+            $candidate->image = $filename;
+          }
+    
         $position->candidates()->save($candidate);
 
 
