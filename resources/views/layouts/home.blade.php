@@ -6,7 +6,7 @@
     @if(!$positions->isEmpty())
         @foreach ($positions as $position)
             
-            <li>Position: {{$position->name}} <a href="{{route("candidate.add",$position->id)}}"><button >Add Candidate</button></a>
+            <li>Position: {{$position->name}} <a href="/candidate/position/{{ $position->id }}/add"><button >Add Candidate</button></a>
                 <ul>
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
