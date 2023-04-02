@@ -9,7 +9,7 @@ class Candidate extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'image'];
     public function position(){
         return $this.belongsTo(Position::class);
     }

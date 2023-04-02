@@ -13,6 +13,10 @@
                             <li>
                                 {{$candidate->name}}
                             </li>
+                            <li>
+                                <img src="{{ asset('uploads/candidates/' . $candidate->image) }}" width="150px"
+                                    height="120px" alt="Image">
+                            </li>
                             
                         @endforeach
                     @endif

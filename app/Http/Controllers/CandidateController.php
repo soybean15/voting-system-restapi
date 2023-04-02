@@ -38,6 +38,14 @@ class CandidateController extends Controller
     public function store(Request $request)
     {
         $position = $request->all();
+
+      if ($request->hasfile('image')){
+        $file = $request->file('image');
+        $extension = $file->getClientOriginalEXtension();
+        $filename= time(). '.' . $extension;
+        $file->move('uploads/candidates/', $filename);
+        $candidate->image = $filename;
+      }
         \App\Models\Position::create($position);
         return redirect('/candidate');
         
