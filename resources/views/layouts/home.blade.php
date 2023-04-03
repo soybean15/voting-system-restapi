@@ -11,9 +11,9 @@
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
                             <li>
-                                {{$candidate->name}}
+                               <img src ="{{ $candidate->image }} " height=""/>        {{$candidate->name}}
                             </li>
-                            
+                        
                         @endforeach
                     @endif
                 </ul>
