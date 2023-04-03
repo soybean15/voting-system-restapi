@@ -11,7 +11,7 @@
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
                             <li>
-                               <img src ="{{ $candidate->image }} " height=""/>        {{$candidate->name}}
+                               <img src ="{{ $candidate->image }} " height="90"/>        {{$candidate->name}}
                             </li>
                         
                         @endforeach
