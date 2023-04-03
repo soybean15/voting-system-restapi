@@ -95,7 +95,7 @@ class CandidateController extends Controller
             $file = $request->file('image');
             $extension = $file->getClientOriginalEXtension();
             $filename= time(). '.' . $extension;
-            $file->move('uploads/candidates/', $filename);
+            $file->move('images/candidates/', $filename);
             $candidate->image = $filename;
           }
     

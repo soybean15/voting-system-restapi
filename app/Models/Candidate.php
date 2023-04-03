@@ -13,4 +13,13 @@ class Candidate extends Model
     public function position(){
         return $this.belongsTo(Position::class);
     }
+
+    public function getImageAttribute($value)
+{
+    if ($value) {
+        return asset('images/candidates/' . $value);
+    } else {
+        return asset('images/default/default-user.png');
+    }
+}
 }

@@ -11,13 +11,9 @@
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
                             <li>
-                                {{$candidate->name}}
+                               <img src ="{{ $candidate->image }} " height=""/>        {{$candidate->name}}
                             </li>
-                            <li>
-                                <img src="{{ asset('uploads/candidates/' . $candidate->image) }}" width="150px"
-                                    height="120px" alt="Image">
-                            </li>
-                            
+                        
                         @endforeach
                     @endif
                 </ul>
