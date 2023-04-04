@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-        
+            $table->integer('winner_count')->default(1);
             $table->timestamps();
         });
     }

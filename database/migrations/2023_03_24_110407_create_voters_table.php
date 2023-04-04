@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('birthdate');
             $table->text('address');
             $table->text('image');
+            $table->dateTime('date_voted');
             $table->timestamps();
         });
     }
