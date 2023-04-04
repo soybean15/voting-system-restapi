@@ -10,9 +10,10 @@ class Candidate extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'image'];
+    
     public function position()
     {
-        return $this.belongsTo(Position::class);
+        return $this->belongsTo(\App\Models\Position::class);
     }
 
     public function getImageAttribute($value)
@@ -23,4 +24,22 @@ class Candidate extends Model
             return asset('images/default/default-user.png');
         }
     }
+
+    public function getRawImageAttribute()
+    {
+        if ($this->attributes['image']) {
+            $path = public_path('images/candidates/' . $this->attributes['image']);
+           
+            if(file_exists($path)){
+               return $path;
+            }
+            return null ;
+            
+            
+        } else {
+            return null;
+        }
+    }
+
+
 }

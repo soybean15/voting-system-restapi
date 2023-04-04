@@ -61,11 +61,9 @@ class CandidateController extends Controller
     public function edit(String $id)
     {  
       
-        $position = \App\Models\Position::findOrFail($id);
-        \Session::put('position_object',$position);
-        \Session::save();
-
+       
         $candidate = Candidate::find($id);
+        $position = $candidate->position;
         return view('layouts.edit_candidate',compact('position', 'candidate'));
   
     }
@@ -75,6 +73,8 @@ class CandidateController extends Controller
      */
     public function update(Request $request, $id)
     {   
+
+      
        // return $id;
         // $id = $request->position_id;
         // $position =\Session::get('position_object');
@@ -95,25 +95,36 @@ class CandidateController extends Controller
         //   $candidate->update($request->all());
 
       
-        $candidate =$request->all();
-        $updatedCandidate = Candidate::find($id); 
+        $updatedCandidate =$request->all();
+        
+        $candidate= Candidate::find($id); 
+        //return $candidate->getRawImageAttribute();
         if($file =  $request->file('file')){
 
-            if($candidate->path != '' && $candidate->path != null){
+            if($candidate->getRawImageAttribute() != '' && $candidate->getRawImageAttribute() != null){
                
-                $file_old = $candidate->path;
-                unlink(public_path('/images/candidates/').$file_old);
+               
+                if( $file_old = $candidate->getRawImageAttribute()){
+                    unlink($file_old);
+                }
+                       
               
             }
 
-            $name = $file->getClientOriginalName();
-            $file->move('images/candidates/',$name);
-            $candidate['image']= $name;
+      
+            $extension = $file->getClientOriginalEXtension();
+            $filename= time(). '.' . $extension;
+            $file->move('images/candidates/',$filename);
+            $candidate['image']= $filename;
     
 
         }
 
-        $updatedCandidate->update($candidate);
+        
+
+        
+
+        $candidate->update($updatedCandidate);
 
 
         
