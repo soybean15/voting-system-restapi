@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Candidate;
+use App\Models\Position;
 
 use Illuminate\Http\Request;
 
@@ -16,7 +18,7 @@ class CandidateController extends Controller
         //test
         $positions = \App\Models\Position::with('candidates')->get();
      
-        //return view('layouts.home',compact('positions'));
+        return view('layouts.home',compact('positions'));
         return response()->json([
             "status" => 1,
             "data" => $positions
@@ -56,17 +58,47 @@ class CandidateController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit(String $id)
+    {  
+      
+        $position = \App\Models\Position::findOrFail($id);
+        \Session::put('position_object',$position);
+        \Session::save();
+
+        $candidate = Candidate::find($id);
+        return view('layouts.edit_candidate',compact('position', 'candidate'));
+  
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //update
+    public function update(Request $request, $id)
+    {   
+
+        $id = $request->position_id;
+        $position =\Session::get('position_object');
+       
+        $candidate = Candidate::find($id); 
+
+        $name = $request->name;
+        $candidate = new \App\Models\Candidate(['name'=>$name]);
+
+        // $candidate ->name = $request ->input ('name');
+        if ($request->hasfile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalEXtension();
+            $filename= time(). '.' . $extension;
+            $file->move('images/candidates/', $filename);
+            $candidate->image = $filename;
+          }
+          $candidate->update($request->all());
+
+        
+    
+
+        return redirect('/candidate')->with('success' , 'Position has been updated successfully'); 
+  
     }
 
     /**
@@ -108,4 +140,7 @@ class CandidateController extends Controller
         return redirect('/candidate');
       
     }
+
+
+    
 }
