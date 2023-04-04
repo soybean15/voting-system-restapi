@@ -1,8 +1,8 @@
 
 <h2>{{$position->name}}</h2>
 <h2>Edit Candidate</h2>
-    <form method="POST" action="{{ route('candidate.update', $candidate->id)}}" enctype="multipart/form-data">
-
+    <form method="POST" action="/candidate/{{ $candidate->id}}" enctype="multipart/form-data">
+        {{$candidate->id}}
       
         <div class="form-group">
 

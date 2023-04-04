@@ -75,30 +75,51 @@ class CandidateController extends Controller
      */
     public function update(Request $request, $id)
     {   
-
-        $id = $request->position_id;
-        $position =\Session::get('position_object');
+       // return $id;
+        // $id = $request->position_id;
+        // $position =\Session::get('position_object');
        
-        $candidate = Candidate::find($id); 
+        // $candidate = Candidate::find($id); 
 
-        $name = $request->name;
-        $candidate = new \App\Models\Candidate(['name'=>$name]);
+        // $name = $request->name;
+        // $candidate = new \App\Models\Candidate(['name'=>$name]);
 
-        // $candidate ->name = $request ->input ('name');
-        if ($request->hasfile('image')){
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalEXtension();
-            $filename= time(). '.' . $extension;
-            $file->move('images/candidates/', $filename);
-            $candidate->image = $filename;
-          }
-          $candidate->update($request->all());
+        // // $candidate ->name = $request ->input ('name');
+        // if ($request->hasfile('image')){
+        //     $file = $request->file('image');
+        //     $extension = $file->getClientOriginalEXtension();
+        //     $filename= time(). '.' . $extension;
+        //     $file->move('images/candidates/', $filename);
+        //     $candidate->image = $filename;
+        //   }
+        //   $candidate->update($request->all());
+
+      
+        $candidate =$request->all();
+        $updatedCandidate = Candidate::find($id); 
+        if($file =  $request->file('file')){
+
+            if($candidate->path != '' && $candidate->path != null){
+               
+                $file_old = $candidate->path;
+                unlink(public_path('/images/candidates/').$file_old);
+              
+            }
+
+            $name = $file->getClientOriginalName();
+            $file->move('images/candidates/',$name);
+            $candidate['image']= $name;
+    
+
+        }
+
+        $updatedCandidate->update($candidate);
+
 
         
     
 
-        return redirect('/candidate')->with('success' , 'Position has been updated successfully'); 
-  
+       return redirect('/candidate');
     }
 
     /**

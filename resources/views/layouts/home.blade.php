@@ -11,7 +11,7 @@
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
                             <li>
-                               <img src ="{{ $candidate->image }} " height="90"/>        {{$candidate->name}}
+                               <img src ="{{ $candidate->image }} " height="90"/>         {{$candidate->name}} {{$candidate->image}}
                                <form action="{{ route('candidate.destroy', $candidate->id) }}" method="Post">
                                 <a class="btn btn-success" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
                                 @csrf
