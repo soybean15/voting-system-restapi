@@ -5,12 +5,16 @@
 <ul>
     @if(!$positions->isEmpty())
         @foreach ($positions as $position)
-            
-            <li>Position: {{$position->name}} <a href="/candidate/position/{{ $position->id }}/add"><button >Add Candidate</button></a>
-                <form action="/candidate/position/{{ $position->id}}"  method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-            
+
+            <li>Position: {{$position->name}}
+                 <a href="/candidate/position/{{ $position->id }}/add"><button >Add Candidate</button></a>
+                <a href="/position/{{$position->id}}/edit"> <button > Edit Position</button></a>
+                <form action="{{ route('candidate.destroyposition', $position) }}" method="POST">
+                    @csrf
+                   
+
+                    @method('DELETE')
+
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
                 <ul>
@@ -21,9 +25,10 @@
                                <a class="" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
                                <form action="/candidate/{{ $candidate->id }}" method="POST">
                                 @csrf
-
+                               
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                
+                                  <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                             </li>
                         
