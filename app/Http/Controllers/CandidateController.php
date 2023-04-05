@@ -136,9 +136,11 @@ class CandidateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Candidate $candidate )
     {
-        //
+        $candidate->delete();
+        return redirect('/candidate')->with('success' , 'Candidate has been deleted successfully'); 
+  
     }
 
     public function createCandidate(String $id){
