@@ -7,10 +7,10 @@
         @foreach ($positions as $position)
             
             <li>Position: {{$position->name}} <a href="/candidate/position/{{ $position->id }}/add"><button >Add Candidate</button></a>
-                <form action="{{ route('candidate.destroyposition', $position) }}" method="POST">
-                    @csrf
-
-                    @method('DELETE')
+                <form action="/candidate/position/{{ $position->id}}"  method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+            
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
                 <ul>
@@ -19,7 +19,7 @@
                             <li>
                                <img src ="{{ $candidate->image }} " height="90"/>         {{$candidate->name}} {{$candidate->image}}
                                <a class="" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
-                               <form action="{{ route('candidate.destroy', $candidate) }}" method="Post">
+                               <form action="/candidate/{{ $candidate->id }}" method="POST">
                                 @csrf
 
                                 @method('DELETE')

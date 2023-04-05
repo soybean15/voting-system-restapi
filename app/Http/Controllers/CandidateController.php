@@ -102,8 +102,7 @@ class CandidateController extends Controller
         if($file =  $request->file('file')){
 
             if($candidate->getRawImageAttribute() != '' && $candidate->getRawImageAttribute() != null){
-               
-               
+                         
                 if( $file_old = $candidate->getRawImageAttribute()){
                     unlink($file_old);
                 }
@@ -118,17 +117,9 @@ class CandidateController extends Controller
             $candidate['image']= $filename;
     
 
-        }
-
-        
-
-        
+        }      
 
         $candidate->update($updatedCandidate);
-
-
-        
-    
 
        return redirect('/candidate');
     }
@@ -180,6 +171,7 @@ class CandidateController extends Controller
     public function destroyPosition(string $id )
 
     {
+        //return $id;
         $position = Position::findOrFail($id);
         $position->delete();
         return redirect('/candidate')->with('success' , 'Candidate has been deleted successfully'); 
