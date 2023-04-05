@@ -8,6 +8,11 @@
         <div class="form-group">
 
             <input type="text" name="name" placeholder="Enter New Position" required>
+          
+        </div>
+        <div>
+             <input type="number" name="winner_count" placeholder="Enter Winner count" required>
+
         </div>
         {{csrf_field()}}
 
