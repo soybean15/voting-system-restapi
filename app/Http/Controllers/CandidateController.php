@@ -176,5 +176,17 @@ class CandidateController extends Controller
     }
 
 
+
+    public function destroyPosition(string $id )
+
+    {
+        $position = Position::findOrFail($id);
+        $position->delete();
+        return redirect('/candidate')->with('success' , 'Candidate has been deleted successfully'); 
+  
+    }
+
+
+
     
 }

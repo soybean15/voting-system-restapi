@@ -7,13 +7,19 @@
         @foreach ($positions as $position)
             
             <li>Position: {{$position->name}} <a href="/candidate/position/{{ $position->id }}/add"><button >Add Candidate</button></a>
+                <form action="{{ route('candidate.destroyposition', $position) }}" method="POST">
+                    @csrf
+
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
                 <ul>
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
                             <li>
                                <img src ="{{ $candidate->image }} " height="90"/>         {{$candidate->name}} {{$candidate->image}}
-                               <form action="{{ route('candidate.destroy', $candidate->id) }}" method="Post">
-                                <a class="btn btn-success" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
+                               <a class="" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
+                               <form action="{{ route('candidate.destroy', $candidate) }}" method="Post">
                                 @csrf
 
                                 @method('DELETE')
