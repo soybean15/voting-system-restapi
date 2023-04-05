@@ -27,5 +27,6 @@ Route::middleware(['cors'])->group(function () {
     Route::get('candidate/position/{id}/add',[CandidateController::class,'createCandidate'])->name('candidate.add');
     Route::get('candidate/update',  [CandidateController::class,'update'])->name('candidate.update');
     Route::delete('candidate/position/{id}',  [CandidateController::class,'destroyPosition'])->name('candidate.destroyposition');
-
+    Route::get('/position/{id}/edit',[CandidateController::class,'editPosition'])->name('position.edit');
+    Route::post('candidate/position/{id}',  [CandidateController::class,'updatePosition'])->name('position.update');
 });

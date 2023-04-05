@@ -121,17 +121,13 @@ class CandidateController extends Controller
         }
 
         
-
-        
-
         $candidate->update($updatedCandidate);
 
 
-        
-    
-
        return redirect('/candidate');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -187,6 +183,24 @@ class CandidateController extends Controller
     }
 
 
+    public function editPosition(string $id)
+    {
 
-    
+             $position = Position::findorFail($id);
+             return view('layouts.edit_position',compact('position')); 
+
+    }
+
+    public function updatePosition(Request $request, $id)
+    {   
+
+        $updatedPosition = $request->all();      
+        $position= Position::find($id);            
+        $position->update($updatedPosition);  
+
+       return redirect('/candidate');
+    }
+
+
+  
 }

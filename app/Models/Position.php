@@ -10,6 +10,7 @@ class Position extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'winner_count'];
+    
     public function candidates(){
         return $this->hasMany(Candidate::class);
     }
