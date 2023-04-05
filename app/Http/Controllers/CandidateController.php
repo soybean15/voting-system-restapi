@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Candidate;
 use App\Models\Position;
+use App\Models\PartyList;
 
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class CandidateController extends Controller
         //test
         $positions = \App\Models\Position::with('candidates')->get();
      
-     //   return view('layouts.home',compact('positions'));
+       return view('layouts.home',compact('positions'));
         return response()->json([
             "status" => 1,
             "data" => $positions
@@ -30,6 +31,7 @@ class CandidateController extends Controller
      */
     public function create()
     {
+       
         return view('layouts.add_position');
         
     }
@@ -141,10 +143,11 @@ class CandidateController extends Controller
     }
 
     public function createCandidate(String $id){
+        $partylists = PartyList::all();
         $position = \App\Models\Position::findOrFail($id);
         \Session::put('position_object',$position);
         \Session::save();
-        return view('layouts.add_candidate',compact('position'));
+        return view('layouts.add_candidate',compact('position','partylists'));
     }
 
     public function storeCandidate(Request $request){ 

@@ -12,7 +12,16 @@
         </div>
         {{csrf_field()}}
 
+        <div class="form-group mb-3">
+            <label for="name">PartyList:</label>
 
+            <select name="options">Select PartyList
+                @foreach ($partylists as $partylist)
+                    <option value="{{ $partylist->id }}">{{$partylist->name }}</option>
+                @endforeach
+            </select>
+
+        </div>
         <input class="btn btn-primary" type="file" name="image" value="Save">
 
         <input class="btn btn-primary" type="submit" name="submit" value="Save">
