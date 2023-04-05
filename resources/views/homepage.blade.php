@@ -3,7 +3,7 @@
 @section('content')
     <h1>Voting System</h1>
 
-    <button>Login</button>
-    <a href="/candidate" ><button>Vote</button></a>
+    <a href="/partylist" ><button>PartyList</button></a>
+    <a href="/candidate" ><button>Admin</button></a>
 
 @endsection

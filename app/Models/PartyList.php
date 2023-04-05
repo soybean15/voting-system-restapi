@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PartyList extends Model
 {
     use HasFactory;
+    protected $fillable = ['name','image'];
+
+    public function candidates(){
+        return $this->hasMany(Candidate::class);
+    }
 }

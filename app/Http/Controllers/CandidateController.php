@@ -18,7 +18,7 @@ class CandidateController extends Controller
         //test
         $positions = \App\Models\Position::with('candidates')->get();
      
-        return view('layouts.home',compact('positions'));
+     //   return view('layouts.home',compact('positions'));
         return response()->json([
             "status" => 1,
             "data" => $positions

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\PartyListController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,7 @@ Route::get('/', function () {
 // Route::post('candidate/store',  [CandidateController::class,'storeCandidate'])->name('candidate.store');
 Route::middleware(['cors'])->group(function () {
     Route::resource('candidate', CandidateController::class);
+    Route::resource('partylist', PartyListController::class);
 
   //  Route::resource('candidate', CandidateController::class);
     Route::post('candidate/store',  [CandidateController::class,'storeCandidate'])->name('candidate.store');

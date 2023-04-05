@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\PartyList;
 
 class PartyListController extends Controller
 {
@@ -12,6 +13,8 @@ class PartyListController extends Controller
     public function index()
     {
         //
+        $partyList = PartyList::all();
+        return view('layouts.partylist.show_partylist', compact('partyList'));
     }
 
     /**
@@ -19,7 +22,7 @@ class PartyListController extends Controller
      */
     public function create()
     {
-        //
+       return view('layouts.partylist.add_partylist');
     }
 
     /**
@@ -28,6 +31,8 @@ class PartyListController extends Controller
     public function store(Request $request)
     {
         //
+        PartyList::create($request->all());
+        return redirect('/partylist');
     }
 
     /**
