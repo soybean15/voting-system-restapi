@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\PartyList;
 use Illuminate\Http\Request;
 
 class PartyListController extends Controller
@@ -11,7 +11,7 @@ class PartyListController extends Controller
      */
     public function index()
     {
-        //
+        return view('layouts.show_partylist');
     }
 
     /**
@@ -19,7 +19,7 @@ class PartyListController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.add_partylist');
     }
 
     /**
@@ -27,7 +27,23 @@ class PartyListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $candidate = new PartyList;
+        $candidate ->name= $request ->input('name');
+      
+      
+        if ($request->hasfile('image')){
+          $file = $request->file('image');
+          $extension = $file->getClientOriginalEXtension();
+          $filename= time(). '.' . $extension;
+          $file->move('images/candidates/', $filename);
+          $candidate->image = $filename;
+        }
+  
+        $candidate->save();
+         
+         return redirect()->route('partylist.create')
+                          ->with('status', 'Candidate added successfully');
+         
     }
 
     /**

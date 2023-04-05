@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\PartyListController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,9 @@ use App\Http\Controllers\CandidateController;
 Route::get('/', function () {
     return view('homepage');
 });
+
+
+Route::resource('/partylist', PartyListController::class);
 // Route::resource('candidate', CandidateController::class);
 
 // Route::resource('candidate', CandidateController::class);
