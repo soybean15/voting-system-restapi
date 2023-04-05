@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('vote_count');
+            $table->integer('vote_count')->default(0);
             $table->bigInteger('position_id')->unsigned()->index()->nullable();
             $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
