@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('vote_count')->default(0);
             $table->bigInteger('position_id')->unsigned()->index()->nullable();
             $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
-            $table->integer('party_list_id');
+            $table->integer('party_list_id')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
