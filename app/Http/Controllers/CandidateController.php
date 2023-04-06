@@ -17,10 +17,10 @@ class CandidateController extends Controller
 
 
         
-        $positions = \App\Models\Position::with('candidates')->get();
-        $partylist = \App\Models\PartyList::with('candidates')->get();
+        $positions = \App\Models\Position::with('candidates.partyList')->get();
+
      
-       return view('layouts.home',compact('positions','partylist'));
+       //return view('layouts.home',compact('positions','partylist'));
         return response()->json([
             "status" => 1,
             "data" => $positions
@@ -109,7 +109,7 @@ class CandidateController extends Controller
 
 
     public function createCandidate(String $id){
-        
+
         $partylists = PartyList::all();
         \Session::put('position_object',$partylists);
 

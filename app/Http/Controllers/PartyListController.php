@@ -13,8 +13,12 @@ class PartyListController extends Controller
     public function index()
     {
         //
-        $partyList = PartyList::all();
-        return view('layouts.partylist.show_partylist', compact('partyList'));
+        $partyList = PartyList::with('candidates')->get();
+        //return view('layouts.partylist.show_partylist', compact('partyList'));
+        return response()->json([
+            "status" => 1,
+            "data" => $partyList
+        ]);
     }
 
     /**
@@ -31,7 +35,12 @@ class PartyListController extends Controller
     public function store(Request $request)
     {
         //
-        PartyList::create($request->all());
+        $partyList = new PartyList(['name'=>$request->name]);
+        if ($file = $request->file('image')){
+            $partyList->storeImage('images/partylist/', $file);
+                              
+        }
+        $partyList->save();
         return redirect('/partylist');
     }
 
