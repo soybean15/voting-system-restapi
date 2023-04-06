@@ -16,8 +16,9 @@
             <label for="name">PartyList:</label>
 
             <select name="options">Select PartyList
+                <option value=""> Independent </option>
                 @foreach ($partylists as $partylist)
-                    <option value="{{ $partylist->id }}">{{$partylist->name }}</option>
+                    <option value="{{ $partylist->id }}" {{$partylist->id== $partylist->id ? 'selected': ''}}>{{$partylist->name }}</option>
                 @endforeach
             </select>
 

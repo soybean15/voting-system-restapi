@@ -18,8 +18,9 @@ class CandidateController extends Controller
 
         //test
         $positions = \App\Models\Position::with('candidates')->get();
+        $partylist = \App\Models\PartyList::with('candidates')->get();
      
-       return view('layouts.home',compact('positions'));
+       return view('layouts.home',compact('positions','partylist'));
         return response()->json([
             "status" => 1,
             "data" => $positions
@@ -62,8 +63,7 @@ class CandidateController extends Controller
      */
     public function edit(String $id)
     {  
-      
-       
+            
         $candidate = Candidate::find($id);
         $position = $candidate->position;
         return view('layouts.edit_candidate',compact('position', 'candidate'));
@@ -76,31 +76,10 @@ class CandidateController extends Controller
     public function update(Request $request, $id)
     {   
 
-      
-       // return $id;
-        // $id = $request->position_id;
-        // $position =\Session::get('position_object');
-       
-        // $candidate = Candidate::find($id); 
-
-        // $name = $request->name;
-        // $candidate = new \App\Models\Candidate(['name'=>$name]);
-
-        // // $candidate ->name = $request ->input ('name');
-        // if ($request->hasfile('image')){
-        //     $file = $request->file('image');
-        //     $extension = $file->getClientOriginalEXtension();
-        //     $filename= time(). '.' . $extension;
-        //     $file->move('images/candidates/', $filename);
-        //     $candidate->image = $filename;
-        //   }
-        //   $candidate->update($request->all());
-
-      
         $updatedCandidate =$request->all();
         
         $candidate= Candidate::find($id); 
-        //return $candidate->getRawImageAttribute();
+
         if($file =  $request->file('file')){
 
             if($candidate->getRawImageAttribute() != '' && $candidate->getRawImageAttribute() != null){
@@ -144,6 +123,8 @@ class CandidateController extends Controller
 
     public function createCandidate(String $id){
         $partylists = PartyList::all();
+        \Session::put('position_object',$partylists);
+
         $position = \App\Models\Position::findOrFail($id);
         \Session::put('position_object',$position);
         \Session::save();
@@ -154,9 +135,11 @@ class CandidateController extends Controller
 
         $id = $request->position_id;
         $position =\Session::get('position_object');
-
+        
+      
         $name = $request->name;
         $candidate = new \App\Models\Candidate(['name'=>$name]);
+        $candidate ->party_list_id= $request ->input('options');
         if ($request->hasfile('image')){
             $file = $request->file('image');
             $extension = $file->getClientOriginalEXtension();
