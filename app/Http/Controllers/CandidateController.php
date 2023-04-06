@@ -18,8 +18,9 @@ class CandidateController extends Controller
 
         //test
         $positions = \App\Models\Position::with('candidates')->get();
+        $partylist = \App\Models\PartyList::with('candidates')->get();
      
-       return view('layouts.home',compact('positions'));
+       return view('layouts.home',compact('positions','partylist'));
         return response()->json([
             "status" => 1,
             "data" => $positions
@@ -144,6 +145,8 @@ class CandidateController extends Controller
 
     public function createCandidate(String $id){
         $partylists = PartyList::all();
+        \Session::put('position_object',$partylists);
+
         $position = \App\Models\Position::findOrFail($id);
         \Session::put('position_object',$position);
         \Session::save();
@@ -154,9 +157,11 @@ class CandidateController extends Controller
 
         $id = $request->position_id;
         $position =\Session::get('position_object');
-
+        
+      
         $name = $request->name;
         $candidate = new \App\Models\Candidate(['name'=>$name]);
+        $candidate ->party_list_id= $request ->input('options');
         if ($request->hasfile('image')){
             $file = $request->file('image');
             $extension = $file->getClientOriginalEXtension();

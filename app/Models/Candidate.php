@@ -16,6 +16,15 @@ class Candidate extends Model
         return $this->belongsTo(\App\Models\Position::class);
     }
 
+      
+    public function partylist()
+    {
+        return $this->belongsTo(\App\Models\Partylist::class);
+    }
+
+
+  
+
     public function getImageAttribute($value)
     {
         if ($value) {

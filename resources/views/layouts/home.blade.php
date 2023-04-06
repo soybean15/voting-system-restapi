@@ -21,11 +21,10 @@
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
                             <li>
-                               <img src ="{{ $candidate->image }} " height="90"/>         {{$candidate->name}} {{$candidate->image}}
-                               <a class="" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
+                               <img src ="{{ $candidate->image }} " height="90"/> {{$candidate->name}}   {{$candidate->image}}
+                              <br> <a class="" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
                                <form action="/candidate/{{ $candidate->id }}" method="POST">
-                                @csrf
-                               
+                                @csrf                            
                                 @method('DELETE')
                                 
                                   <button type="submit" class="btn btn-danger">Delete</button>
