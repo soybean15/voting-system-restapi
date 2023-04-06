@@ -5,7 +5,6 @@
 <h2>Add Candidate</h2>
     <form method="POST" action="/candidate/store" enctype="multipart/form-data">
 
-        <input type="hidden" name="position_id" value="{{$position->id}}" required>
         <div class="form-group">
 
             <input type="text" name="name" placeholder="Enter Name" required>
@@ -15,10 +14,10 @@
         <div class="form-group mb-3">
             <label for="name">PartyList:</label>
 
-            <select name="options">Select PartyList
+            <select name="party_list_id">Select PartyList
                 <option value=""> Independent </option>
                 @foreach ($partylists as $partylist)
-                    <option value="{{ $partylist->id }}" {{$partylist->id== $partylist->id ? 'selected': ''}}>{{$partylist->name }}</option>
+                    <option value="{{ $partylist->id}}" >{{$partylist->name }}</option>
                 @endforeach
             </select>
 

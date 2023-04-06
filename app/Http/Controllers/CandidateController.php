@@ -16,7 +16,7 @@ class CandidateController extends Controller
     {
 
 
-        //test
+        
         $positions = \App\Models\Position::with('candidates')->get();
         $partylist = \App\Models\PartyList::with('candidates')->get();
      
@@ -81,23 +81,7 @@ class CandidateController extends Controller
         $candidate= Candidate::find($id); 
 
         if($file =  $request->file('file')){
-
-            if($candidate->getRawImageAttribute() != '' && $candidate->getRawImageAttribute() != null){
-                         
-                if( $file_old = $candidate->getRawImageAttribute()){
-                    unlink($file_old);
-                }
-                       
-              
-            }
-
-      
-            $extension = $file->getClientOriginalEXtension();
-            $filename= time(). '.' . $extension;
-            $file->move('images/candidates/',$filename);
-            $candidate['image']= $filename;
-    
-
+            $candidate->restoreImage('images/candidates/', $file);
 
         }
 
@@ -121,7 +105,11 @@ class CandidateController extends Controller
   
     }
 
+
+
+
     public function createCandidate(String $id){
+        
         $partylists = PartyList::all();
         \Session::put('position_object',$partylists);
 
@@ -133,25 +121,18 @@ class CandidateController extends Controller
 
     public function storeCandidate(Request $request){ 
 
-        $id = $request->position_id;
+
         $position =\Session::get('position_object');
+        $candidate = new \App\Models\Candidate(['name'=>$request->name]);
+        $candidate->partylist()->associate($request->party_list_id);
+       
         
-      
-        $name = $request->name;
-        $candidate = new \App\Models\Candidate(['name'=>$name]);
-        $candidate ->party_list_id= $request ->input('options');
-        if ($request->hasfile('image')){
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalEXtension();
-            $filename= time(). '.' . $extension;
-            $file->move('images/candidates/', $filename);
-            $candidate->image = $filename;
-          }
-    
+        if ($file = $request->file('image')){
+            $candidate->storeImage('images/candidates/', $file);
+                              
+        }
+            
         $position->candidates()->save($candidate);
-
-
-
         
 
         return redirect('/candidate');

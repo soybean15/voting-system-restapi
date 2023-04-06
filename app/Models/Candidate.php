@@ -6,12 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
+use App\Http\Traits\Imageable;
+
+
+
 class Candidate extends Model
 {
-    use HasFactory;
+    use HasFactory, Imageable;
 
     protected $fillable = ['name', 'vote_count', 'image'];
     protected $appends = ['party_list_name'];
+
+
+
 
     
     public function partyList()
