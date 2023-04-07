@@ -30,7 +30,7 @@ class Candidate extends Model
         if ($this->partyList) {
             return $this->partyList->name;
         } else {
-            return "independent";
+            return "Independent";
         }
     }
 
@@ -45,9 +45,11 @@ class Candidate extends Model
     public function getImageAttribute($value)
     {
         if ($value) {
-            return asset('images/candidates/' . $value);
+            //return Vite::asset('images/candidates/' . $value);
+            return 'images/candidates/' . $value;
         } else {
-            return asset('images/default/default-user.png');
+          //  return Vite::asset('images/default/default-user.png');
+          return 'images/default/default-user.png';
         }
     }
 

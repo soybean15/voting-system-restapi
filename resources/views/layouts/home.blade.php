@@ -22,7 +22,7 @@
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
                             <li>
-                               <img src ="{{ $candidate->image }} " height="90"/> {{$candidate->name}}   {{$candidate->image}}<br>
+                               <img src ="{{$candidate->image}} " height="90"/> {{$candidate->name}}   {{$candidate->image}}<br>
                                PartyList: {{$candidate->party_list_name}}
                               <br> <a class="" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
                                <form action="/candidate/{{ $candidate->id }}" method="POST">

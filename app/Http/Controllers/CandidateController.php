@@ -18,9 +18,10 @@ class CandidateController extends Controller
 
         
         $positions = \App\Models\Position::with('candidates.partyList')->get();
+        $partyLists = PartyList::all();
 
      
-       //return view('layouts.home',compact('positions','partylist'));
+      return view('layouts.home',compact('positions','partyLists'));
         return response()->json([
             "status" => 1,
             "data" => $positions
@@ -124,9 +125,7 @@ class CandidateController extends Controller
 
         $position =\Session::get('position_object');
         $candidate = new \App\Models\Candidate(['name'=>$request->name]);
-        $candidate->partylist()->associate($request->party_list_id);
-       
-        
+        $candidate->partylist()->associate($request->party_list_id); 
         if ($file = $request->file('image')){
             $candidate->storeImage('images/candidates/', $file);
                               
