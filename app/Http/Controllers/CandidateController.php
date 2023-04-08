@@ -47,7 +47,7 @@ class CandidateController extends Controller
 
      
         \App\Models\Position::create($position);
-        return redirect('/candidate');
+        return redirect('api/candidate');
         
     }
 
@@ -99,10 +99,12 @@ class CandidateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Candidate $candidate )
+    public function destroy(String $id )
     {
-        $candidate->delete();
-        return redirect('/candidate')->with('success' , 'Candidate has been deleted successfully'); 
+        $position = Position::findOrFail($id);
+       
+        $position->delete();
+        return redirect('api/candidate')->with('success' , 'Candidate has been deleted successfully'); 
   
     }
 
@@ -111,19 +113,22 @@ class CandidateController extends Controller
 
     public function createCandidate(String $id){
 
-        $partylists = PartyList::all();
-        \Session::put('position_object',$partylists);
 
+        
+        $partylists = PartyList::all();
+      
         $position = \App\Models\Position::findOrFail($id);
-        \Session::put('position_object',$position);
-        \Session::save();
+
+  
         return view('layouts.add_candidate',compact('position','partylists'));
     }
 
     public function storeCandidate(Request $request){ 
 
 
-        $position =\Session::get('position_object');
+        
+        $position = \App\Models\Position::findOrFail($request->position_id);
+        
         $candidate = new \App\Models\Candidate(['name'=>$request->name]);
         $candidate->partylist()->associate($request->party_list_id); 
         if ($file = $request->file('image')){
@@ -134,20 +139,21 @@ class CandidateController extends Controller
         $position->candidates()->save($candidate);
         
 
-        return redirect('/candidate');
+        return redirect('api/candidate');
       
     }
 
 
 
-    public function destroyPosition(string $id )
+    public function destroyCandidate(string $id )
 
     {
         //return $id;
-        $position = Position::findOrFail($id);
-        $position->delete();
+
+        $candidate->delete();
         return redirect('/candidate')->with('success' , 'Candidate has been deleted successfully'); 
   
+     
     }
 
 

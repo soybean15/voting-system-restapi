@@ -3,12 +3,13 @@
 @section('content')
 <h2>{{$position->name}}</h2>
 <h2>Add Candidate</h2>
-    <form method="POST" action="/candidate/store" enctype="multipart/form-data">
+    <form method="POST" action="{{route('candidate.store_candidate')}}" enctype="multipart/form-data">
 
         <div class="form-group">
 
             <input type="text" name="name" placeholder="Enter Name" required>
         </div>
+        <input type="hidden" name="position_id" placeholder="Enter Name" value="{{$position->id}}">
         {{csrf_field()}}
 
         <div class="form-group mb-3">

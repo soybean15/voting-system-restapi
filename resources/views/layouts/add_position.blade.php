@@ -2,7 +2,7 @@
 
 @section('content')
 <h2>Add New Position</h2>
-    <form method="POST" action="/candidate">
+    <form method="POST" action="{{route('candidate.store')}}">
 
        
         <div class="form-group">

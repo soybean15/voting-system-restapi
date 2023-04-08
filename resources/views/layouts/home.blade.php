@@ -8,9 +8,9 @@
 
             <li>Position: {{$position->name}} <br>
           
-                 <a href="/candidate/position/{{ $position->id }}/add"><button >Add Candidate</button></a>
+                 <a href="/api/candidate/position/{{ $position->id }}"><button >Add Candidate</button></a>
                 <a href="/position/{{$position->id}}/edit"> <button > Edit Position</button></a>
-                <form action="{{ route('candidate.destroyposition', $position) }}" method="POST">
+                <form action="{{ route('candidate.destroy', $position) }}" method="POST">
                     @csrf
                    
 
@@ -22,10 +22,10 @@
                     @if(!$position->candidates->isEmpty())
                         @foreach ($position->candidates as $candidate )
                             <li>
-                               <img src ="{{$candidate->image}} " height="90"/> {{$candidate->name}}   {{$candidate->image}}<br>
+                               <img src ="{{asset($candidate->image)}} " height="90"/> {{$candidate->name}}   {{asset($candidate->image)}}<br>
                                PartyList: {{$candidate->party_list_name}}
-                              <br> <a class="" href="/candidate/{{ $candidate->id }}/edit">Edit</a>
-                               <form action="/candidate/{{ $candidate->id }}" method="POST">
+                              <br> <a class="" href="api/candidate/{{ $candidate->id }}/edit">Edit</a>
+                               <form action="api/candidate/{{ $candidate->id }}" method="POST">
                                 @csrf                            
                                 @method('DELETE')
                                 
@@ -45,5 +45,5 @@
     @endif
 
 </ul>
-<a href="/candidate/create"><button>Add</button></a>
+<a href="{{route('candidate.create')}}"><button>Add</button></a>
 @endsection
