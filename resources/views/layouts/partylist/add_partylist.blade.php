@@ -3,7 +3,7 @@
 @section('content')
 <h1>Add Party List</h1>
 
-    <form method="POST" action="/partylist"  enctype="multipart/form-data">
+    <form method="POST" action="{{route('partylist.store')}}"  enctype="multipart/form-data">
 
         <div class="form-group">
 

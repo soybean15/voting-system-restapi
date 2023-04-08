@@ -2,7 +2,7 @@
 
 @section('content')
 <h2>Edit Position</h2>
-    <form method="POST" action="/candidate/position/{{ $position->id}}">
+    <form method="POST" action="{{route('candidate.update_position',$position->id)}}">
 
        
         <div class="form-group">

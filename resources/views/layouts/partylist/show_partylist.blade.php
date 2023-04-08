@@ -16,7 +16,7 @@
         <h3>no items</h3>
 
     @endif
-    <a href="/partylist/create"><button>add</button> </a>
+    <a href="{{route('partylist.create')}}"><button>add</button> </a>
 
 
 

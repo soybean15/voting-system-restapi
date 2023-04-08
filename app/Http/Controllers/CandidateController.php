@@ -91,7 +91,7 @@ class CandidateController extends Controller
 
 
 
-       return redirect('/candidate');
+       return redirect('api/candidate');
     }
 
 
@@ -101,9 +101,13 @@ class CandidateController extends Controller
      */
     public function destroy(String $id )
     {
-        $position = Position::findOrFail($id);
-       
-        $position->delete();
+
+
+        $candidate = \App\Models\Candidate::find($id);
+        $candidate->unlinkImage();
+        $candidate->delete();
+
+ 
         return redirect('api/candidate')->with('success' , 'Candidate has been deleted successfully'); 
   
     }
@@ -145,13 +149,17 @@ class CandidateController extends Controller
 
 
 
-    public function destroyCandidate(string $id )
+    public function destroyPosition(string $id )
 
     {
-        //return $id;
-
-        $candidate->delete();
-        return redirect('/candidate')->with('success' , 'Candidate has been deleted successfully'); 
+ 
+        $position = Position::findOrFail($id);
+        $candidates =$position->candidates;
+        foreach ($candidates as $candidate){
+            $candidate->unlinkImage();
+        }
+        $position->delete();
+        return redirect('api/candidate'); 
   
      
     }
@@ -172,7 +180,7 @@ class CandidateController extends Controller
         $position= Position::find($id);            
         $position->update($updatedPosition);  
 
-       return redirect('/candidate');
+       return redirect('api/candidate');
     }
 
 

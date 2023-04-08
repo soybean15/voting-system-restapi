@@ -9,8 +9,8 @@
             <li>Position: {{$position->name}} <br>
           
                  <a href="/api/candidate/position/{{ $position->id }}"><button >Add Candidate</button></a>
-                <a href="/position/{{$position->id}}/edit"> <button > Edit Position</button></a>
-                <form action="{{ route('candidate.destroy', $position) }}" method="POST">
+                <a href="{{route('candidate.edit_position',$position->id)}}"> <button > Edit Position</button></a>
+                <form action="{{ route('candidate.destroy_position', $position->id) }}" method="POST">
                     @csrf
                    
 
@@ -24,8 +24,8 @@
                             <li>
                                <img src ="{{asset($candidate->image)}} " height="90"/> {{$candidate->name}}   {{asset($candidate->image)}}<br>
                                PartyList: {{$candidate->party_list_name}}
-                              <br> <a class="" href="api/candidate/{{ $candidate->id }}/edit">Edit</a>
-                               <form action="api/candidate/{{ $candidate->id }}" method="POST">
+                              <br> <a class="" href="{{route('candidate.edit', $candidate)}}">Edit</a>
+                               <form action="{{route('candidate.destroy',$candidate->id)}}" method="POST">
                                 @csrf                            
                                 @method('DELETE')
                                 
