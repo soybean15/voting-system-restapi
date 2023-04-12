@@ -14,7 +14,7 @@ class PartyListController extends Controller
     {
         //
         $partyList = PartyList::with('candidates')->get();
-        return view('layouts.partylist.show_partylist', compact('partyList'));
+       // return view('layouts.partylist.show_partylist', compact('partyList'));
         return response()->json([
             "status" => 1,
             "data" => $partyList

@@ -46,10 +46,10 @@ class Candidate extends Model
     {
         if ($value) {
             //return Vite::asset('images/candidates/' . $value);
-            return 'images/candidates/' . $value;
+            return asset('images/candidates/' . $value);
         } else {
           //  return Vite::asset('images/default/default-user.png');
-          return 'images/default/default-user.png';
+          return asset('images/default/default-user.png');
         }
     }
 
