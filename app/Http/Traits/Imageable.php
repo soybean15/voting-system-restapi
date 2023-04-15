@@ -22,15 +22,6 @@ trait Imageable
 
 
         $this->unlinkImage();
-
-        // if($this->getRawImageAttribute() != '' && $this->getRawImageAttribute() != null){
-                         
-        //     if( $file_old = $this->getRawImageAttribute()){
-        //         unlink($file_old);
-        //     }
-                   
-          
-        // }
         $this->storeImage($path, $file);
 
     }

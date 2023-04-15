@@ -135,6 +135,7 @@ class CandidateController extends Controller
         
         $candidate = new \App\Models\Candidate(['name'=>$request->name]);
         $candidate->partylist()->associate($request->party_list_id); 
+        
         if ($file = $request->file('image')){
             $candidate->storeImage('images/candidates/', $file);
                               
