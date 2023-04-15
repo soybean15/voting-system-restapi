@@ -26,4 +26,4 @@ Route::resource('/partylist', \App\Http\Controllers\PartyListController::class);
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
-});
+})->middleware('verified');
