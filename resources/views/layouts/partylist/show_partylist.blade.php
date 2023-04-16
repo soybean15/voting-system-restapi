@@ -7,7 +7,8 @@
     @if (!$partyList->isEmpty())
         <ul>
         @foreach($partyList as $item)
-            <li>{{$item->name}}</li>
+            <li>{{$item->name}} <a href="{{route('partylist.edit', $item->id)}}"><button>edit</button> </a>   </li>
+           
             
         @endforeach
         </ul>

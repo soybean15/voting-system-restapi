@@ -21,7 +21,7 @@ class CandidateController extends Controller
         $partyLists = PartyList::all();
 
      
-     // return view('layouts.home',compact('positions','partyLists'));
+     return view('layouts.home',compact('positions','partyLists'));
         return response()->json([
             "status" => 1,
             "data" => $positions
