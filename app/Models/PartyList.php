@@ -26,5 +26,21 @@ class PartyList extends Model
     }
 
 
+    public function getRawImageAttribute()
+    {
+        if ($this->attributes['image']) {
+            $path = public_path('images/partylist/' . $this->attributes['image']);
+           
+            if(file_exists($path)){
+               return $path;
+            }
+            return null ;
+            
+            
+        } else {
+            return null;
+        }
+    }
+
 
 }

@@ -90,7 +90,7 @@ class PartyListController extends Controller
     public function destroy(string $id)
     {
         $partylist = PartyList::find($id);
-        // $partylist ->unlinkImage();
+        $partylist ->unlinkImage();
         $partylist->delete();
 
  
