@@ -14,7 +14,7 @@ class PartyListController extends Controller
     {
         //
         $partyList = PartyList::with('candidates')->get();
-       // return view('layouts.partylist.show_partylist', compact('partyList'));
+       return view('layouts.partylist.show_partylist', compact('partyList'));
         return response()->json([
             "status" => 1,
             "data" => $partyList
@@ -57,7 +57,8 @@ class PartyListController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $partylist = PartyList::find($id);
+        return view('layouts.partylist.edit_partylist',compact('partylist'));
     }
 
     /**
@@ -65,7 +66,22 @@ class PartyListController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $updatedPartylist =$request->all();
+        
+        $partylist= PartyList::find($id); 
+
+        if($file =  $request->file('file')){
+            $partylist->restoreImage('images/partylist/', $file);
+
+        }
+
+        
+        $partylist->update($updatedPartylist);
+
+
+
+       return redirect('/api/partylist');
     }
 
     /**
