@@ -7,7 +7,15 @@
     @if (!$partyList->isEmpty())
         <ul>
         @foreach($partyList as $item)
-            <li>{{$item->name}} <a href="{{route('partylist.edit', $item->id)}}"><button>edit</button> </a>   </li>
+            <li>{{$item->name}}
+                 <a href="{{route('partylist.edit', $item->id)}}"><button>Edit</button> </a>
+                 <form action="{{route('partylist.destroy',$item->id)}}" method="POST">
+                    @csrf                            
+                    @method('DELETE')
+                    
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+               </li>
            
             
         @endforeach

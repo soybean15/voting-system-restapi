@@ -81,7 +81,7 @@ class PartyListController extends Controller
 
 
 
-       return redirect('/api/partylist');
+       return redirect('api/partylist');
     }
 
     /**
@@ -89,6 +89,12 @@ class PartyListController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $partylist = PartyList::find($id);
+        // $partylist ->unlinkImage();
+        $partylist->delete();
+
+ 
+        return redirect('api/partylist');
+  
     }
 }
