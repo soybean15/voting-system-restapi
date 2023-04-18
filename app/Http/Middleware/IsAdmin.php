@@ -16,9 +16,13 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         //$user = Auth::user();
-        $user = \App\Models\User::find(7);
+        //return $request->all();
+        $user =  $request->user();
         if(!$user->isAdmin()){
-            return redirect()->intended('/home');
+            return  response()->json([
+                "status" => 0,
+                "message" => "Unauthorize"
+            ]);
         }
         return $next($request);
     }

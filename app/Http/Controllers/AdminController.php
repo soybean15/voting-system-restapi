@@ -13,6 +13,9 @@ class AdminController extends Controller
     }
 
     public function index(){
-        return "youre an admin";
+        return  response()->json([
+            "status" => 1,
+            "message" => "Welcome Admin"
+        ]);
     }
 }
