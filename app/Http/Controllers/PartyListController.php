@@ -75,7 +75,6 @@ class PartyListController extends Controller
             $partylist->restoreImage('images/partylist/', $file);
 
         }
-
         
         $partylist->update($updatedPartylist);
 

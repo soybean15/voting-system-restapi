@@ -52,4 +52,14 @@ class User extends Authenticatable  implements MustVerifyEmail
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
+
+    public function isAdmin(){
+        foreach($this->roles as $role){
+            if($role->role == 'Admin'){
+                return true;
+            }
+
+        }
+        return false;
+    }
 }

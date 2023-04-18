@@ -24,6 +24,10 @@ Route::post('/candidate/position/{id}', [\App\Http\Controllers\CandidateControll
 Route::delete('/candidate/position/{id}', [\App\Http\Controllers\CandidateController::class, 'destroyPosition'])->name('candidate.destroy_position');
 Route::resource('/partylist', \App\Http\Controllers\PartyListController::class);
 
+
+
+Route::get('/admin','\App\Http\Controllers\AdminController@index');
+
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 })->middleware('verified');
