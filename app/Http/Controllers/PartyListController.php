@@ -13,7 +13,7 @@ class PartyListController extends Controller
     public function index()
     {
         //
-        $partyList = PartyList::with('candidates')->get();
+        $partyList = PartyList::with('candidates')->paginate(5);
        // return view('layouts.partylist.show_partylist', compact('partyList'));
         return response()->json([
             "status" => 1,
