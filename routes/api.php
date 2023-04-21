@@ -25,6 +25,7 @@ Route::delete('/candidate/position/{id}', [\App\Http\Controllers\CandidateContro
 Route::resource('/partylist', \App\Http\Controllers\PartyListController::class);
 
 
+Route::get('/dashboard','\App\Http\Controllers\AdminController@dashboard');
 
 Route::get('/admin','\App\Http\Controllers\AdminController@index');
 

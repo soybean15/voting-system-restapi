@@ -35,6 +35,10 @@ class PartyListController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name'=> 'required'
+        ]);
+
         $partyList = new PartyList(['name'=>$request->name]);
         if ($file = $request->file('image')){
             $partyList->storeImage('images/partylist/', $file);

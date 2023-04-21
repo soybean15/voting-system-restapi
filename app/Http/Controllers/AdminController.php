@@ -18,4 +18,16 @@ class AdminController extends Controller
             "message" => "Welcome Admin"
         ]);
     }
+
+    public function dashboard(){
+
+        $partylist = \App\Models\PartyList::all();
+
+
+        return response()->json([
+            "status" => 1,
+            "partylist"=>$partylist
+
+        ]);
+    }
 }
