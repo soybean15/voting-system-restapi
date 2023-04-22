@@ -48,7 +48,7 @@ class PartyListController extends Controller
       //  return redirect('/api/partylist');
         return response()->json([
             "status" => 1,
-            "message" => "Data saved"
+            "data" => $request->all()
         ]);
     }
 
@@ -101,7 +101,10 @@ class PartyListController extends Controller
         $partylist->delete();
 
  
-        return redirect('api/partylist');
+        return   response()->json([
+            "status" => 1,
+            "message" => "Data Deleted"
+        ]);;
   
     }
 }
