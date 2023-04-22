@@ -4,6 +4,7 @@
 /public/hot
 /public/storage
 /public/images/candidates
+/public/images/partylist
 /storage/*.key
 /vendor
 .env
