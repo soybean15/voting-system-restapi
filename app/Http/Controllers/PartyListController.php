@@ -48,7 +48,7 @@ class PartyListController extends Controller
       //  return redirect('/api/partylist');
         return response()->json([
             "status" => 1,
-            "data" => $request->all()
+            "message" => "New Partylist successfully added"
         ]);
     }
 
