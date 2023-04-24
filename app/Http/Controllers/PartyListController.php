@@ -45,10 +45,15 @@ class PartyListController extends Controller
                               
         }
         $partyList->save();
-      //  return redirect('/api/partylist');
+     
+        $partyLists = PartyList::with('candidates')->paginate(5);
         return response()->json([
-            "status" => 1,
-            "message" => "New Partylist successfully added"
+            
+            "status" =>[
+                "status" => 1,
+                "message" => "Data added successfully"
+            ],
+            "data"=>$partyLists
         ]);
     }
 
@@ -74,21 +79,38 @@ class PartyListController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+       
+    
         $updatedPartylist =$request->all();
-        
+ 
         $partylist= PartyList::find($id); 
 
-        if($file =  $request->file('file')){
+        $name = $request->input('name');
+        $image = $request->file('image');
+
+        $partylist->name = $name;
+        //$partylist->image=$image;
+
+
+        if($file =  $request->file('image')){
             $partylist->restoreImage('images/partylist/', $file);
 
-        }
+        }        
+        $partylist->save();
+    //    //return redirect('api/partylist');
+
         
-        $partylist->update($updatedPartylist);
+    
 
-
-
-       return redirect('api/partylist');
+       $partyLists = PartyList::with('candidates')->paginate(5);
+        return response()->json([
+            
+            "status" =>[
+                "status" =>$id,
+                "message" => $partylist->image
+            ],
+            "data"=>$partyLists
+        ]);
     }
 
     /**

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('candidates', function (Blueprint $table) {
             $table->bigInteger('party_list_id')->unsigned()->index()->nullable();
-            $table->foreign('party_list_id')->references('id')->on('party_lists')->onDelete('NO ACTION');
+            $table->foreign('party_list_id')->references('id')->on('party_lists')->onDelete('set null');
         });
     }
 
