@@ -97,17 +97,14 @@ class PartyListController extends Controller
 
         }        
         $partylist->save();
-    //    //return redirect('api/partylist');
 
-        
-    
 
        $partyLists = PartyList::with('candidates')->paginate(5);
         return response()->json([
             
             "status" =>[
                 "status" =>$id,
-                "message" => $partylist->image
+                "message" =>"Updated Successfully"
             ],
             "data"=>$partyLists
         ]);
@@ -128,5 +125,6 @@ class PartyListController extends Controller
             "message" => "Data Deleted"
         ]);;
   
+
     }
 }
