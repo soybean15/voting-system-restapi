@@ -17,7 +17,7 @@ class CandidateController extends Controller
 
 
         
-        $positions = \App\Models\Position::with('candidates.partyList')->get();
+        $positions = \App\Models\Position::with('candidates.partyList')->paginate(5);
         $partyLists = PartyList::all();
 
      
@@ -43,11 +43,22 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        $position = $request->all();
+       
+
+        $request->validate([
+            'name'=> 'required',
+            'voteCount'=>'required'
+        ]);
+
+         $position = $request->all();
+
 
      
         \App\Models\Position::create($position);
-        return redirect('api/candidate');
+        return response()->json([
+            "status" => 1,
+            "message" => 'New Position Added'
+        ]);
         
     }
 
