@@ -30,7 +30,8 @@ class CandidateController extends Controller
             "status" => 1,
             "data" => [
                 "positions"=>$positions,
-                "candidates"=> $candidates
+                "candidates"=> $candidates,
+                "partylist"=>$partyLists
             ]
         ]);
     }
@@ -155,14 +156,16 @@ class CandidateController extends Controller
         $candidate->partylist()->associate($request->party_list_id); 
         
         if ($file = $request->file('image')){
-            $candidate->storeImage('images/candidates/', $file);
-                              
+            $candidate->storeImage('images/candidates/', $file);                          
         }
             
         $position->candidates()->save($candidate);
         
 
-        return redirect('api/candidate');
+        return response()->json([
+            "status" => 1,
+            "message" => "New Candidate Added"
+        ]);
       
     }
 
