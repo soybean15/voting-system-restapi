@@ -17,14 +17,21 @@ class CandidateController extends Controller
 
 
         
-        $positions = \App\Models\Position::with('candidates.partyList')->paginate(5);
+        $positions = \App\Models\Position::paginate(5);
         $partyLists = PartyList::all();
+        $candidates = Candidate::paginate(5);
+        
+
+        
 
      
    //  return view('layouts.home',compact('positions','partyLists'));
         return response()->json([
             "status" => 1,
-            "data" => $positions
+            "data" => [
+                "positions"=>$positions,
+                "candidates"=> $candidates
+            ]
         ]);
     }
 
