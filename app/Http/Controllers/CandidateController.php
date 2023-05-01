@@ -150,8 +150,6 @@ class CandidateController extends Controller
 
 
         
-        $position = \App\Models\Position::findOrFail($request->position_id);
-        
         $candidate = new \App\Models\Candidate(['name'=>$request->name]);
         $candidate->partylist()->associate($request->party_list_id); 
         
@@ -159,7 +157,14 @@ class CandidateController extends Controller
             $candidate->storeImage('images/candidates/', $file);                          
         }
             
-        $position->candidates()->save($candidate);
+        if($request->position_id != null){
+            $position = \App\Models\Position::findOrFail($request->position_id);
+            $position->candidates()->save($candidate);
+        }else{
+            $candidate->save();
+        }
+        
+       
         
 
         return response()->json([
