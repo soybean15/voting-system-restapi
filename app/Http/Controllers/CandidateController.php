@@ -211,15 +211,15 @@ class CandidateController extends Controller
 
 
     public function getCandidates(){
-        // $candidates = Candidate::with('position')->paginate(5);
-        // $partyLists = PartyList::all();
-        return "hello";
+        $candidates = Candidate::with('position')->paginate(5);
+        $partyLists = PartyList::all();
+        
         return response()->json([
             "status" => 1,
-            // "data" => [
-            //     "partylist"=>$partyLists,
-            //     "candidates"=>$candidates
-            // ]
+            "data" => [
+                "partylist"=>$partyLists,
+                "candidates"=>$candidates
+            ]
         ]);
 
     }
