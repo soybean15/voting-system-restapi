@@ -19,10 +19,6 @@ class CandidateController extends Controller
         
         $positions = \App\Models\Position::paginate(5);
         $partyLists = PartyList::all();
-        $candidates = Candidate::paginate(5);
-        
-
-        
 
      
    //  return view('layouts.home',compact('positions','partyLists'));
@@ -30,7 +26,6 @@ class CandidateController extends Controller
             "status" => 1,
             "data" => [
                 "positions"=>$positions,
-                "candidates"=> $candidates,
                 "partylist"=>$partyLists
             ]
         ]);
@@ -127,7 +122,11 @@ class CandidateController extends Controller
         $candidate->delete();
 
  
-        return redirect('api/candidate')->with('success' , 'Candidate has been deleted successfully'); 
+     //   return redirect('api/candidate')->with('success' , 'Candidate has been deleted successfully'); 
+        return response()->json([
+            "status" => 1,
+            "message" => 'Candidate Deleted!'
+        ]);
   
     }
 
@@ -209,6 +208,22 @@ class CandidateController extends Controller
 
        return redirect('api/candidate');
     }
+
+
+    public function getCandidates(){
+        // $candidates = Candidate::with('position')->paginate(5);
+        // $partyLists = PartyList::all();
+        return "hello";
+        return response()->json([
+            "status" => 1,
+            // "data" => [
+            //     "partylist"=>$partyLists,
+            //     "candidates"=>$candidates
+            // ]
+        ]);
+
+    }
+
 
 
   

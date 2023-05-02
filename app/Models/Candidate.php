@@ -15,7 +15,7 @@ class Candidate extends Model
     use HasFactory, Imageable;
 
     protected $fillable = ['name', 'vote_count', 'image'];
-    protected $appends = ['party_list_name'];
+    protected $appends = ['party_list_name','position_name'];
 
 
 
@@ -41,6 +41,13 @@ class Candidate extends Model
         return $this->belongsTo(\App\Models\Position::class);
     }
 
+    public function getPositionNameAttribute(){
+        if($this->position){
+            return $this->position->name;
+        }else{
+            return 'N/A';
+        }
+    }
 
     public function getImageAttribute($value)
     {
