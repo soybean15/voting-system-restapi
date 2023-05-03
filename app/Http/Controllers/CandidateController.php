@@ -92,20 +92,28 @@ class CandidateController extends Controller
     {   
 
         $updatedCandidate =$request->all();
+
+        $name = $request->name;
+        $party_list_id = $request->party_list_id;
         
         $candidate= Candidate::find($id); 
+        $candidate->name = $name;
+        $candidate->party_list_id = $party_list_id;
 
-        if($file =  $request->file('file')){
+        if($file =  $request->file('image')){
             $candidate->restoreImage('images/candidates/', $file);
 
         }
 
-        
-        $candidate->update($updatedCandidate);
+        $candidate->save();
+       // $candidate->update($updatedCandidate);
 
 
 
-       return redirect('api/candidate');
+       return response()->json([
+            "status" => 1 ,
+            "message" => 'Successfully updated'
+        ]);
     }
 
 
@@ -146,6 +154,14 @@ class CandidateController extends Controller
     }
 
     public function storeCandidate(Request $request){ 
+
+
+
+        $request->validate([
+            'name'=> 'required',
+           
+        ]);
+
 
 
         
