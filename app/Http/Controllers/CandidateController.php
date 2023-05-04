@@ -37,6 +37,7 @@ class CandidateController extends Controller
     public function insertCandidates(String $id,Request $request){
         
         return response()->json([
+            "id"=>$id,
             "status" => $request->all()
             
         ]);
