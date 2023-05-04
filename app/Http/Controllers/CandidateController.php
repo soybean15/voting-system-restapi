@@ -19,6 +19,8 @@ class CandidateController extends Controller
         
         $positions = \App\Models\Position::paginate(5);
         $partyLists = PartyList::all();
+        $candidates = Candidate::whereNull('position_id')->orWhere('position_id', '')->get();
+
 
      
    //  return view('layouts.home',compact('positions','partyLists'));
@@ -26,8 +28,17 @@ class CandidateController extends Controller
             "status" => 1,
             "data" => [
                 "positions"=>$positions,
-                "partylist"=>$partyLists
+                "partylist"=>$partyLists,
+                "candidates"=>$candidates
             ]
+        ]);
+    }
+
+    public function insertCandidates(String $id,Request $request){
+        
+        return response()->json([
+            "status" => $request->all()
+            
         ]);
     }
 
