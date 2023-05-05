@@ -15,7 +15,7 @@ class Candidate extends Model
     use HasFactory, Imageable;
 
     protected $fillable = ['name', 'vote_count', 'image'];
-    protected $appends = ['party_list_name','position_name'];
+    protected $appends = ['party_list_name','position_name','party_list_image'];
 
 
 
@@ -31,6 +31,13 @@ class Candidate extends Model
             return $this->partyList->name;
         } else {
             return "Independent";
+        }
+    }
+    public function getPartyListImageAttribute(){
+        if($this->partyList){
+            return  $this->partyList->image;
+        }else{
+            return asset('images/default/independent-logo.png');
         }
     }
 

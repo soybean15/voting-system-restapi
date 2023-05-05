@@ -17,7 +17,7 @@ class CandidateController extends Controller
 
 
         
-        $positions = \App\Models\Position::paginate(5);
+        $positions = \App\Models\Position::with('candidates.partylist')->paginate(5);
         $partyLists = PartyList::all();
         $candidates = Candidate::whereNull('position_id')->orWhere('position_id', '')->get();
 
