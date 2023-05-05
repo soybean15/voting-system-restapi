@@ -49,7 +49,7 @@ class CandidateController extends Controller
         
         return response()->json([
             "id"=>$id,
-            "status" => $request->candidates
+            "candidates" =>  $position->candidates
             
         ]);
     }
