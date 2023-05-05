@@ -35,10 +35,21 @@ class CandidateController extends Controller
     }
 
     public function insertCandidates(String $id,Request $request){
+
+        $position = Position::find($id);
+        foreach($request->candidates as $candidateId){
+            $candidate = Candidate::find($candidateId);
+            $candidate->position()->associate($position);
+            $candidate->save();
+
+        }
+        
+      
+       // $position->save();
         
         return response()->json([
             "id"=>$id,
-            "status" => $request->all()
+            "status" => $request->candidates
             
         ]);
     }
