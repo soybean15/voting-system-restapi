@@ -17,7 +17,7 @@ class CandidateController extends Controller
 
 
         
-        $positions = \App\Models\Position::with('candidates.partylist')->paginate(5);
+        $positions = \App\Models\Position::with('candidates')->paginate(4);
         $partyLists = PartyList::all();
         $candidates = Candidate::whereNull('position_id')->orWhere('position_id', '')->get();
 
@@ -73,7 +73,7 @@ class CandidateController extends Controller
 
         $request->validate([
             'name'=> 'required',
-            'voteCount'=>'required'
+            'winner_count'=>'required'
         ]);
 
          $position = $request->all();
@@ -221,10 +221,14 @@ class CandidateController extends Controller
         $position = Position::findOrFail($id);
         $candidates =$position->candidates;
         foreach ($candidates as $candidate){
-            $candidate->unlinkImage();
+            $candidate->position()->dissociate();
+            $candidate->save();
         }
-        $position->delete();
-        return redirect('api/candidate'); 
+       // $position->delete();
+        return response()->json([
+            "status" => 1,
+            "message" => "Position Deleted"
+        ]);
   
      
     }
