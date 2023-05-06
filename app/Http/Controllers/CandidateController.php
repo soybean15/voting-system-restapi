@@ -46,10 +46,13 @@ class CandidateController extends Controller
         
       
        // $position->save();
+       $candidates = Candidate::whereNull('position_id')->orWhere('position_id', '')->get();
+
         
         return response()->json([
             "id"=>$id,
-            "candidates" =>  $position->candidates
+            "candidates" =>  $position->candidates,
+            "vacant_candidates"=> $candidates
             
         ]);
     }
@@ -224,13 +227,30 @@ class CandidateController extends Controller
             $candidate->position()->dissociate();
             $candidate->save();
         }
-       // $position->delete();
+        $position->delete();
         return response()->json([
             "status" => 1,
             "message" => "Position Deleted"
         ]);
   
      
+    }
+
+    public function removeCandidatePosition(String $id){
+       // return $id;
+        $candidate = Candidate::find($id);
+        $position = $candidate->position;
+        $candidate->position()->dissociate();
+        $candidate->save();
+        $candidates = Candidate::whereNull('position_id')->orWhere('position_id', '')->get();
+
+
+        return response()->json([
+            "status" => 'candidate',
+            "message" => 'Candidate Remove' ,
+            "candidates"=> $position->candidates,
+            "vacant_candidates"=> $candidates
+        ]);
     }
 
 
