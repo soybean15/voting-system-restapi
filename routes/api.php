@@ -21,7 +21,7 @@ Route::get('/candidates',[\App\Http\Controllers\CandidateController::class, 'get
 Route::post('/candidates/position/{id}/insert',[\App\Http\Controllers\CandidateController::class, 'insertCandidates'])->name('candidate.insertCandidate');
 Route::delete('/candidate/position/{id}/remove',[\App\Http\Controllers\CandidateController::class, 'removeCandidatePosition'])->name('candidate.removeCandidatePosition');
 Route::get('/candidate/position/{id}', [\App\Http\Controllers\CandidateController::class, 'createCandidate'])->name('candidate.create_candidate');
-Route::get('/candidate/position/{id}/edit', [\App\Http\Controllers\CandidateController::class, 'editPosition'])->name('candidate.edit_position');
+Route::put('/candidate/position/{id}/edit', [\App\Http\Controllers\CandidateController::class, 'editPosition'])->name('candidate.edit_position');
 Route::post('/candidate/add', [\App\Http\Controllers\CandidateController::class, 'storeCandidate'])->name('candidate.store_candidate');
 Route::post('/candidate/position/{id}', [\App\Http\Controllers\CandidateController::class, 'updatePosition'])->name('candidate.update_position');
 Route::delete('/candidate/position/{id}', [\App\Http\Controllers\CandidateController::class, 'destroyPosition'])->name('candidate.destroy_position');
