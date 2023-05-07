@@ -262,14 +262,19 @@ class CandidateController extends Controller
 
     }
 
-    public function updatePosition(Request $request, $id)
+    public function updatePosition(Request $request,  $id)
     {   
 
         $updatedPosition = $request->all();      
-        $position= Position::find($id);            
+        $position= Position::with('candidates')->find($id);            
         $position->update($updatedPosition);  
 
-       return redirect('api/candidate');
+        return response()->json([
+            "status" => 'Position',
+            "message" => 'Position Updated' ,
+            "position"=>$position
+           
+        ]);
     }
 
 
