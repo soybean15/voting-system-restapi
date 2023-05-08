@@ -27,6 +27,8 @@ Route::post('/candidate/position/{id}', [\App\Http\Controllers\CandidateControll
 Route::delete('/candidate/position/{id}', [\App\Http\Controllers\CandidateController::class, 'destroyPosition'])->name('candidate.destroy_position');
 Route::resource('/partylist', \App\Http\Controllers\PartyListController::class);
 
+Route::get('/voting',[\App\Http\Controllers\VotingController::class, 'index'])->name('voting.index');
+
 //Route::post('/partylist/{id}', [\App\Http\Controllers\PartyListController::class, 'update'])->name('partylist.update');
 
 

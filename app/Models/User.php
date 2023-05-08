@@ -62,4 +62,15 @@ class User extends Authenticatable  implements MustVerifyEmail
         }
         return false;
     }
+
+    public function voteLog(){
+        return $this->hasOne(VoteLog::class);
+    }
+
+    public function hasVoted(){
+        if($this->voteLog){
+            return true;
+        }
+        return false;
+    }
 }
