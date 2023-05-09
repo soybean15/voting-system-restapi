@@ -10,6 +10,11 @@ use App\Models\PartyList;
 use App\Models\User;
 class VotingController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('hasVoted');
+
+    }
     public function index(){
 
          
@@ -21,6 +26,17 @@ class VotingController extends Controller
         return response()->json([
             "status" => 1,
             "data" =>$positions
+        ]);
+
+    }
+
+    public function check(){
+
+
+   //  return view('layouts.home',compact('positions','partyLists'));
+        return response()->json([
+            "status" => 1,
+            "data" =>'welcome User'
         ]);
 
     }
@@ -45,7 +61,7 @@ class VotingController extends Controller
         $voteLog->save();
 
         return response()->json([
-            "status" => $request->positions,
+            "title" => 'Vote Submitted',
             "message" =>"Your Vote has been recorded please wait for the result"
         ]);
     }
