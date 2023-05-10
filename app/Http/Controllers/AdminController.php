@@ -32,12 +32,17 @@ class AdminController extends Controller
         $position_count = $positions->count();
         $user_count = \App\Models\User::count();
 
-        // $hasVoted = User::has('voteLog')->get();
-        // $notVoted = User::doesntHave('vote_log')->get();
+         $hasVoted = User::has('voteLog')->count();
+         $notVoted = User::doesntHave('voteLog')->count();
 
         $voteLogs = VoteLog::with('user')
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
+            ->take(10)
             ->get();
+            foreach ($voteLogs as $voteLog) {
+                $voteLog->created_at = \Carbon\Carbon::parse($voteLog->created_at)->format('Y-m-d H:i:s');
+            }
+
         return response()->json([
             "status" => 1,
             "partylist_count"=>$partylist_count,
@@ -45,8 +50,28 @@ class AdminController extends Controller
             "position_count"=> $position_count,
             "user_count"=> $user_count,
             "positions"=>$positions,
-            "vote_logs"=>$voteLogs
+            "vote_logs"=>$voteLogs,
+            "voters"=>[
+                "has_voted"=>$hasVoted,
+                "not_voted"=>$notVoted
+            ]
 
         ]);
+    }
+
+    public function filterByDate(Request $request){
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $voteLogs = VoteLog::with('user')
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->orderByDesc('created_at')
+            ->take(10)
+            ->get();
+    
+        // Return the filtered vote logs
+        return response()->json([
+            'vote_logs' => $voteLogs
+        ]);
+
     }
 }
