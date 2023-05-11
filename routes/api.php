@@ -36,6 +36,7 @@ Route::post('/voting',[\App\Http\Controllers\VotingController::class, 'store'])-
 Route::get('/dashboard','\App\Http\Controllers\AdminController@dashboard');
 
 Route::get('/admin','\App\Http\Controllers\AdminController@index');
+Route::get('admin/settings','\App\Http\Controllers\AdminController@getSettings');
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
