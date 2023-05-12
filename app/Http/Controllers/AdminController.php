@@ -88,5 +88,21 @@ class AdminController extends Controller
         ]);
 
     }
+
+    public function handleShowResult(){
+
+        
+        $settings = \DB::table('dashboard')->first();
+
+        $newStatus = !$settings->show_result;
+
+        \DB::table('dashboard')->where('id', $settings->id)->update(['show_result' => $newStatus]);
+
+        $updatedSettings = \DB::table('dashboard')->where('id', $settings->id)->first();
+        return response()->json([
+            'settings' => $updatedSettings 
+        ]);
+
+    }
     
 }

@@ -37,6 +37,7 @@ Route::get('/dashboard','\App\Http\Controllers\AdminController@dashboard');
 
 Route::get('/admin','\App\Http\Controllers\AdminController@index');
 Route::get('admin/settings','\App\Http\Controllers\AdminController@getSettings');
+Route::post('admin/settings/show-result','\App\Http\Controllers\AdminController@handleShowResult');
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
