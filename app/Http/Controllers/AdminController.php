@@ -14,6 +14,8 @@ class AdminController extends Controller
     public function __construct(){
         $this->middleware('isAdmin');
 
+        
+
 
     }
 
@@ -23,13 +25,20 @@ class AdminController extends Controller
             "message" => "Welcome Admin"
         ]);
     }
+    public function getResult(){
+        $positions= Position::with('candidates')->get();
+        return  response()->json([
+            "status" => 1,
+            "positions" => $positions
+        ]);
+    }
 
     public function dashboard(){
-        $positions= Position::with('candidates')->get();
+
 
         $partylist_count = \App\Models\PartyList::count();
         $candidate_count = Candidate::count();
-        $position_count = $positions->count();
+        $position_count = Position::count();
         $user_count = \App\Models\User::count();
 
          $hasVoted = User::has('voteLog')->count();
@@ -49,7 +58,7 @@ class AdminController extends Controller
             "candidate_count" =>$candidate_count,
             "position_count"=> $position_count,
             "user_count"=> $user_count,
-            "positions"=>$positions,
+   
             "vote_logs"=>$voteLogs,
             "voters"=>[
                 "has_voted"=>$hasVoted,
@@ -102,6 +111,27 @@ class AdminController extends Controller
         return response()->json([
             'settings' => $updatedSettings 
         ]);
+
+    }
+
+    public function openVoting(){
+
+        $settings = \DB::table('dashboard')->first();
+        $timeOpen = $settings->time_open;
+    
+        if (!$timeOpen) {
+            // Add the current date and time to the `time_open` column if it is currently null
+            \DB::table('dashboard')->where('id', $settings->id)->update(['time_open' => \Carbon\Carbon::now()]);
+        } else {
+            // Set the `time_open` column to null if it has a value
+            \DB::table('dashboard')->where('id', $settings->id)->update(['time_open' => null]);
+        }
+    
+        $updatedSettings = \DB::table('dashboard')->where('id', $settings->id)->first();
+        return response()->json([
+            'settings' => $updatedSettings 
+        ]);
+
 
     }
     
