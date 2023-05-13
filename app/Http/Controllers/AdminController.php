@@ -8,9 +8,12 @@ use App\Models\Position;
 use App\Models\PartyList;
 use App\Models\User;
 use App\Models\VoteLog;
+use App\Http\Traits\HandleShowResult;
 
 class AdminController extends Controller
 {
+    use HandleShowResult;
+
     public function __construct(){
         $this->middleware('isAdmin');
 
@@ -26,7 +29,8 @@ class AdminController extends Controller
         ]);
     }
     public function getResult(){
-        $positions= Position::with('candidates')->get();
+        // $positions= Position::with('candidates')->get();
+        $positions =$this->showResult();
         return  response()->json([
             "status" => 1,
             "positions" => $positions
@@ -85,17 +89,17 @@ class AdminController extends Controller
     }
 
     public function getSettings(){
-        $settings = \DB::table('dashboard')->get();
-        if ($settings->count() === 0) {
-            \DB::table('dashboard')->insert([
-                'show_result' => false
-            ]);
-            $settings = \DB::table('dashboard')->get();
-        }
-        return response()->json([
-            'settings' => $settings
-        ]);
-
+        // $settings = \DB::table('dashboard')->get();
+        // if ($settings->count() === 0) {
+        //     \DB::table('dashboard')->insert([
+        //         'show_result' => false
+        //     ]);
+        //     $settings = \DB::table('dashboard')->get();
+        // }
+        // return response()->json([
+        //     'settings' => $settings
+        // ]);
+        return $this->loadSettings();
     }
 
     public function handleShowResult(){
@@ -108,6 +112,7 @@ class AdminController extends Controller
         \DB::table('dashboard')->where('id', $settings->id)->update(['show_result' => $newStatus]);
 
         $updatedSettings = \DB::table('dashboard')->where('id', $settings->id)->first();
+ 
         return response()->json([
             'settings' => $updatedSettings 
         ]);

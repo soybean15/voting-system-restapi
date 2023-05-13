@@ -24,3 +24,4 @@ Route::get('users/{id}', function ($id) {
     $user = \App\Models\User::find($id);
     return $user->isAdmin();
 });
+

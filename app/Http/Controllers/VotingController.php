@@ -8,13 +8,14 @@ use App\Models\Candidate;
 use App\Models\Position;
 use App\Models\PartyList;
 use App\Models\User;
+use App\Http\Traits\HandleShowResult;
 class VotingController extends Controller
 {
+    use HandleShowResult;
+    // public function __construct(){
+    //     $this;
 
-    public function __construct(){
-        $this->middleware('hasVoted');
-
-    }
+    // }
     public function index(){
 
          
@@ -65,4 +66,18 @@ class VotingController extends Controller
             "message" =>"Your Vote has been recorded please wait for the result"
         ]);
     }
+
+    public function getResult(){
+        $result = $this->showResult();
+        return  response()->json([
+            "status" => 1,
+            "positions" => $result
+        ]);
+        
+    }
+
+    public function getSettings(){
+        return $this->loadSettings();
+    }
+   
 }

@@ -17,7 +17,7 @@ class IsAdmin
     {
      
         $user =  $request->user();
-        if(!$user->isAdmin()){
+        if($user && !$user->isAdmin()){
             return  response()->json([
                 "status" => 0,
                 "message" => "Unauthorize"

@@ -27,11 +27,12 @@ Route::post('/candidate/position/{id}', [\App\Http\Controllers\CandidateControll
 Route::delete('/candidate/position/{id}', [\App\Http\Controllers\CandidateController::class, 'destroyPosition'])->name('candidate.destroy_position');
 Route::resource('/partylist', \App\Http\Controllers\PartyListController::class);
 
-Route::get('/voting',[\App\Http\Controllers\VotingController::class, 'index'])->name('voting.index');
+Route::get('/voting',[\App\Http\Controllers\VotingController::class, 'index'])->name('voting.index')->middleware('hasVoted');
 Route::get('/voting/check',[\App\Http\Controllers\VotingController::class, 'check'])->name('voting.check');
 Route::post('/voting',[\App\Http\Controllers\VotingController::class, 'store'])->name('voting.store');
 //Route::post('/partylist/{id}', [\App\Http\Controllers\PartyListController::class, 'update'])->name('partylist.update');
-
+Route::get('voting/result','\App\Http\Controllers\VotingController@getResult');
+Route::get('voting/settings','\App\Http\Controllers\VotingController@getSettings');
 
 Route::get('/dashboard','\App\Http\Controllers\AdminController@dashboard');
 
@@ -39,6 +40,7 @@ Route::get('/admin','\App\Http\Controllers\AdminController@index');
 Route::get('admin/settings','\App\Http\Controllers\AdminController@getSettings');
 Route::post('admin/settings/show-result','\App\Http\Controllers\AdminController@handleShowResult');
 Route::post('admin/settings/open-voting','\App\Http\Controllers\AdminController@openVoting');
+
 Route::get('admin/result','\App\Http\Controllers\AdminController@getResult');
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
