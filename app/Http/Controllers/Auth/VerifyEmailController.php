@@ -29,13 +29,13 @@ class VerifyEmailController extends Controller
         // return redirect()->intended(
         //     config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
         // );
-        if ($user()->hasVerifiedEmail()) {
+        if ($user->hasVerifiedEmail()) {
             return redirect()->intended(
                 config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
             );
         }
 
-        if ($user()->markEmailAsVerified()) {
+        if ($user->markEmailAsVerified()) {
             event(new Verified($user()));
         }
        
