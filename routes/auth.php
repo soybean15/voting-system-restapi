@@ -35,10 +35,3 @@ Route::post('/email/verification-notification', [EmailVerificationNotificationCo
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
-
-
-Route::get('/login',function(){
-    return redirect()->intended(
-        config('app.frontend_url').RouteServiceProvider::HOME
-    );
-});
