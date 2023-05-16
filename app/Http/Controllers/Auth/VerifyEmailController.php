@@ -31,6 +31,7 @@ class VerifyEmailController extends Controller
         // );
 
         $user = User::find($request->route('id'));
+        dd($request);
 
         if ($user->email_verified_at) {
           return '';
