@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/login', function (){
+    return view('login');
+});
 
 Route::get('users/{id}', function ($id) {
     $user = \App\Models\User::find($id);
