@@ -32,10 +32,8 @@ class VerifyEmailController extends Controller
 
         $user = User::find($request->route('id'));
 
-        if ($user->hasVerifiedEmail()) {
-            return redirect()->intended(
-                config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
-            );
+        if ($user->email_verified_at) {
+          return '';
         }
 
         if ($user->markEmailAsVerified()) {
