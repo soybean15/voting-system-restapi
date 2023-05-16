@@ -71,7 +71,7 @@ class CustomVerifyEmailNotification extends Notification
 
        protected function verificationUrl($notifiable)
     {
-        return URL::temporarySignedRoute(
+        $url =  URL::temporarySignedRoute(
             'verification.verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
@@ -79,5 +79,9 @@ class CustomVerifyEmailNotification extends Notification
                 'hash' => sha1($notifiable->getEmailForVerification()),
             ]
         );
+
+        $url .= '?id=' . $notifiable->getKey();
+
+        return $url;
     }
 }
