@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +20,9 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/login', function (){
-    return view('login');
+    $user = Auth::user();
+    return $user;
+
 });
 
 Route::get('users/{id}', function ($id) {
