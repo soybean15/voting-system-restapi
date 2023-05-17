@@ -20,10 +20,10 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/login', function (){
-    return Redirect::away('https://pollingpoint.net/verify');
+// Route::get('/login', function (){
+//     return Redirect::away('https://pollingpoint.net/verify?fromapi=1');
 
-});
+// });
 
 Route::get('users/{id}', function ($id) {
     $user = \App\Models\User::find($id);
