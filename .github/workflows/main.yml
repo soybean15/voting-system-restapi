@@ -28,6 +28,7 @@ jobs:
           sudo docker compose exec -uroot app sh -c \
           "composer install --optimize-autoloader --no-dev &&
           php artisan config:cache &&
+          php artisan route:cache &&
           php artisan optimize &&
           php artisan migrate &&
           supervisorctl restart all"
