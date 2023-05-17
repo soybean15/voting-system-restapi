@@ -43,6 +43,9 @@ Route::post('admin/settings/open-voting','\App\Http\Controllers\AdminController@
 
 Route::get('admin/result','\App\Http\Controllers\AdminController@getResult');
 
+
+
+
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 })->middleware('verified');
