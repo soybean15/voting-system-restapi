@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Auth\CustomEmailVerificationCodeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,9 @@ require __DIR__.'/auth.php';
 //     return Redirect::away('https://pollingpoint.net/verify?fromapi=1');
 
 // });
+
+
+Route::post('/verify-email', [CustomEmailVerificationCodeController::class, 'verify'])->name('customverification.verify');
 
 Route::get('users/{id}', function ($id) {
     $user = \App\Models\User::find($id);

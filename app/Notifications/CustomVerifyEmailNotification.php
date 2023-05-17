@@ -11,8 +11,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 
-
-class CustomVerifyEmailNotification extends Notification
+class CustomVerifyEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -39,25 +38,56 @@ class CustomVerifyEmailNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $verificationCode = $this->generateVerificationCode();
+        $expiration = now()->addMinutes(Config::get('auth.verification.expire', 30));
+
+        
+        // Save the verification code and expiration in the database
+        \DB::table('verification_codes')->insert([
+            'code' => $verificationCode,
+            'expiration' => $expiration,
+            'email' => $notifiable->email,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
 
         return (new MailMessage)
-        ->subject('Verify Your Email Address')
-        ->greeting('Greetings Voters!')
-        ->line('Thanks for signing up. Please click the button below to verify your email address.')
-       
-        ->action('Verify Email Address', $this->verificationUrl($notifiable))
-        ->line('If you did not create an account, no further action is required.');
+            ->subject('Verify Your Email Address')
+            ->greeting('Greetings Voters!')
+            ->line('Thanks for signing up. Please use the verification code below to verify your email address.')
+            ->line('Verification Code: ' . $verificationCode)
+            ->line('This code will expire on ' . $expiration->format('Y-m-d H:i:s') . '.')
+            ->line('If you did not create an account, no further action is required.');
+    }
 
+    /**
+     * Generate a random verification code.
+     *
+     * @return string
+     */
+    protected function generateVerificationCode(): string
+    {
+        // Customize the code generation logic as per your requirements
+        return substr(md5(uniqid()), 0, 6);
     }
 
     public function from($notifiable)
     {
-    return [
-        'address' => 'marlonpadilla1593@gmail.com',
-        'name' => 'Voting.com',
-    ];
-    }
+        return [
+            'address' => 'marlonpadilla1593@gmail.com',
+            'name' => 'Voting.com',
+        ];
 
+        
+    }
+    protected function verificationUrl($notifiable)
+{
+    return route('verification.verify', [
+        'email' => $notifiable->email,
+        'code' => $this->verificationCode,
+    ]);
+}
 
     /**
      * Get the array representation of the notification.
@@ -70,21 +100,4 @@ class CustomVerifyEmailNotification extends Notification
             //
         ];
     }
-
-       protected function verificationUrl($notifiable)
-    {
-        return URL::temporarySignedRoute(
-            'verification.verify',
-            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
-            [
-                'id' => $notifiable->getKey(),
-                'hash' => sha1($notifiable->getEmailForVerification()),
-            ]
-        );
-
-        
-    }
-
-
-
 }
