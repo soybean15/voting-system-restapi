@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\HtmlString;
 
 class CustomVerifyEmailNotification extends Notification implements ShouldQueue
 {
@@ -38,8 +39,9 @@ class CustomVerifyEmailNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $timeLimit = 30;
         $verificationCode = $this->generateVerificationCode();
-        $expiration = now()->addMinutes(Config::get('auth.verification.expire', 30));
+        $expiration = now()->addMinutes(Config::get('auth.verification.expire', $timeLimit));
 
         
         // Save the verification code and expiration in the database
@@ -56,8 +58,9 @@ class CustomVerifyEmailNotification extends Notification implements ShouldQueue
             ->subject('Verify Your Email Address')
             ->greeting('Greetings Voters!')
             ->line('Thanks for signing up. Please use the verification code below to verify your email address.')
-            ->line('Verification Code: ' . $verificationCode)
-            ->line('This code will expire on ' . $expiration->format('Y-m-d H:i:s') . '.')
+           
+            ->line(new HtmlString('Verification Code: <span style="font-size:  20px; color:#e8eaed; font-weight: bold;">' . $verificationCode . '</span>'))
+            ->line('This code will expire on ' . $timeLimit . ' minutes.')
             ->line('If you did not create an account, no further action is required.');
     }
 
