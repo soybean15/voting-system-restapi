@@ -39,10 +39,12 @@ class CustomVerifyEmailNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+
         return (new MailMessage)
         ->subject('Verify Your Email Address')
         ->greeting('Greetings Voters!')
         ->line('Thanks for signing up. Please click the button below to verify your email address.')
+       
         ->action('Verify Email Address', $this->verificationUrl($notifiable))
         ->line('If you did not create an account, no further action is required.');
 
@@ -82,4 +84,7 @@ class CustomVerifyEmailNotification extends Notification
 
         
     }
+
+
+
 }

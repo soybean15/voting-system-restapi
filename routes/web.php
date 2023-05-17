@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,8 +21,7 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/login', function (){
-    $user = Auth::user();
-    return $user;
+    return Redirect::away('https://pollingpoint.net/verify');
 
 });
 
