@@ -29,5 +29,6 @@ jobs:
           "composer install --optimize-autoloader --no-dev &&
           php artisan config:cache &&
           php artisan optimize &&
+          php artisan migrate &&
           supervisorctl restart all"
           '
