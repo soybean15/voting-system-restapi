@@ -32,7 +32,7 @@ class CustomEmailVerificationCodeController extends Controller
             User::where('email', $email)->update(['email_verified_at' => Carbon::now()]);
 
             // Delete the verification code from the database
-            \DB::table('verification_codes')->where('email', $verificationCode->id)->delete();
+            \DB::table('verification_codes')->where('id', $verificationCode->id)->delete();
 
             return response()->json(['message' => 'Email verified successfully'], 200);
         } else {
