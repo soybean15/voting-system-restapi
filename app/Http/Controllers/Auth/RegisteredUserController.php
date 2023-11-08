@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        if($request->email == 'marlonpadilla1593@gmail.com'){
+        if($request->email == 'user0vote.com'){
             $user->roles()->attach(1);
         }else{
             $user->roles()->attach(2);
