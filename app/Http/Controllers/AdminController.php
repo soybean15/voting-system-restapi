@@ -9,7 +9,7 @@ use App\Models\PartyList;
 use App\Models\User;
 use App\Models\VoteLog;
 use App\Http\Traits\HandleShowResult;
-
+use App\Http\Services\DomPDFService;
 class AdminController extends Controller
 {
     use HandleShowResult;
@@ -37,6 +37,18 @@ class AdminController extends Controller
         ]);
     }
 
+
+    public function printResult(){
+        $data =   $data =[
+            'data'=>$this->showResult()
+        ];
+        $pdf= DomPDFService::generate('reports.result',$data);
+
+        return  $pdf->download();
+
+     //   return response()->json($data);
+         
+    }
     public function dashboard(){
 
 

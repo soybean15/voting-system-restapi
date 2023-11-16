@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PDFController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +45,7 @@ Route::post('admin/settings/open-voting','\App\Http\Controllers\AdminController@
 
 Route::get('admin/result','\App\Http\Controllers\AdminController@getResult');
 
-
+Route::get('/download-result',[AdminController::class,'printResult']);
 
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
